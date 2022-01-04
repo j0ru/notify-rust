@@ -153,7 +153,9 @@ mod notification;
 #[cfg(all(unix, not(target_os = "macos")))] mod xdg;
 
 #[cfg(all(feature = "images", unix, not(target_os = "macos")))] mod image;
-#[cfg(all(feature = "server", feature = "dbus", unix, not(target_os = "macos")))] pub mod server;
+#[cfg(all(feature = "server", unix, not(target_os = "macos")))] pub mod server {
+    // TODO: reexports go here
+}
 
 pub(crate) mod urgency;
 

@@ -14,6 +14,12 @@ mod dbus_rs;
 #[cfg(feature = "zbus")]
 mod zbus_rs;
 
+#[cfg(all(feature = "server", feature = "dbus", unix, not(target_os = "macos")))]
+pub mod server_dbus;
+
+#[cfg(all(feature = "server", feature = "zbus", unix, not(target_os = "macos")))]
+pub mod server_zbus;
+
 #[cfg(not(feature = "debug_namespace"))]
 pub static NOTIFICATION_NAMESPACE: &str = "org.freedesktop.Notifications";
 #[cfg(not(feature = "debug_namespace"))]
@@ -117,7 +123,7 @@ impl NotificationHandle {
     ///                    .unwrap()
     ///                    .on_close(|| println!("closed"));
     /// ```
-    /// 
+    ///
     /// ## Example 2: *I **do** care about why it closed* (added in v4.5.0)
     ///
     /// ```no_run
